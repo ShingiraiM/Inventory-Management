@@ -1,0 +1,22 @@
+Function GetProduct(what As String, whatnum As Integer, t As Integer) As String
+
+' This function gets product details from the Hampers Worksheet
+
+Dim Value As String
+
+    If what = "item" Then
+             x = t
+             Value = Cells(whatnum, x)
+           
+    ElseIf what = "code" Then
+             y = t
+             Value = Cells(whatnum, y)
+    Else:
+             z = t
+             Value = Cells(whatnum, z)
+
+    End If
+
+GetProduct = Value
+
+End Function
