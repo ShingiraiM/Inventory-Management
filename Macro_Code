@@ -1,9 +1,8 @@
 Function GetProduct(what As String, whatnum As Integer, t As Integer) As String
 
-' This function gets product details from the Hampers Worksheet
+' # This function gets product details from the Hampers Worksheet
 
 Dim Value As String
-
     If what = "item" Then
              x = t
              Value = Cells(whatnum, x)
@@ -16,7 +15,63 @@ Dim Value As String
              Value = Cells(whatnum, z)
 
     End If
-
 GetProduct = Value
+End Function
+
+
+Sub CopyPaste(RowR As Integer)
+
+' This Subroutine copies, ORDER NUMBER, ORDER DATE, EXPECTED DATE, ORDER TYPE  PARTNER CODE, LOCATION, PAYMENT DUE DATE,INVOICE, number
+' to worksheet and pastes as values to keep the records intact. Only the other orders that are not Open order call this subroutine
+
+    ActiveSheet.Range(Cells(RowR, 1), Cells(RowR, 8)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    
+' Then for the mileage does the same as above
+    
+    ActiveSheet.Cells(RowR, 308).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    
+End Sub
+
+Function CountRow() As Integer
+
+'Return the number of Rows in the current Order Log
+
+Dim n As Integer
+
+n = 4
+
+While Cells(n, 2).Value <> ""
+
+n = n + 1
+
+Wend
+
+CountRow = n
+
+End Function
+
+Function CountCol(code As String) As Integer
+
+'Return the column number of each item to allow the quantity to be deposited on the correct column in the current Order Log
+
+Dim m As Integer
+
+m = 1
+
+While Cells(4, m).Value <> code
+
+m = m + 1
+
+Wend
+
+CountCol = m
 
 End Function
